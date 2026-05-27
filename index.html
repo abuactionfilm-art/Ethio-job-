@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ኢትዮ ጆብ ፋስት | Ethio Job Fast</title>
+    <style>
+        :root {
+            --primary-color: #009b3a; /* አረንጓዴ */
+            --secondary-color: #fed100; /* ቢጫ */
+            --danger-color: #ef4444; /* ቀይ */
+            --dark-color: #1e293b;
+            --light-color: rgba(255, 255, 255, 0.96);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--dark-color);
+            padding-bottom: 80px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, rgba(0, 155, 58, 0.95), rgba(254, 209, 0, 0.95), rgba(239, 68, 68, 0.95));
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        header h1 { font-size: 26px; }
+        header p { font-size: 14px; margin-top: 5px; font-weight: bold; color: #fff;}
+
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #64748b;
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Container */
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--light-color);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            backdrop-filter: blur(5px);
+        }
+
+        .card h2 {
+            font-size: 19px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 10px;
+            color: #0f172a;
+        }
+
+        /* Deposit Bottom Section */
+        .deposit-trigger-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+            transition: 0.2s;
+        }
+        .deposit-trigger-btn:hover { opacity: 0.95; }
+
+        .cbe-box {
+            background-color: #f0f7ff;
+            border: 2px dashed #2563eb;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none; /* መጀመሪያ የተሰወረ ነው */
+        }
+
+        .cbe-logo {
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .acc-number {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin: 12px 0;
+            color: #0f172a;
+            background: #e0f2fe;
+            padding: 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .copy-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .note-text {
+            font-size: 12px;
+            color: #ef4444;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #009b3a, #10b981);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Job UI */
+        .job-pkg-title {
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .bg-easy { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .bg-fast { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+        .visa-badge {
+            background-color: white;
+            color: #0f172a;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .job-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .job-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #cbd5e1;
+        }
+
+        .job-info {
+            flex: 1;
+        }
+        .job-info h3 { font-size: 15px; color: #1e293b; margin-bottom: 4px; }
+        .job-info p { font-size: 12px; color: #64748b; }
+
+        .apply-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* የቀጥታ ማስታወቂያ (Live Fake Apply Feed) */
+        .live-feed-container {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 450px;
+            background: rgba(15, 23, 42, 0.95);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            border: 1px solid #334155;
+            transition: all 0.5s ease;
+        }
+
+        .feed-pulse {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+            100% { transform: scale(0.9); opacity: 1; }
+        }
+
+        /* Custom Alert */
+        .alert-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .alert-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 85%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .alert-box h3 { margin-bottom: 12px; font-size: 20px; }
+        .alert-box button {
+            background-color: var(--dark-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🇪🇹 ኢትዮ ጆብ ፋስት (Ethio Job Fast)</h1>
+        <p>የካናዳ የግብርና እና የእንስሳት እርባታ የቅጥር ዳሽቦርድ</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('deposit')">💰 ክፍያ (Deposit)</button>
+        <button class="tab-btn" onclick="openTab('jobs')">🌾 የካናዳ ስራዎች</button>
+        <button class="tab-btn" onclick="openTab('profile')">👤 መገለጫ (Profile)</button>
+    </div>
+
+    <div class="container">
+
+        <div id="deposit" class="tab-content active">
+            <div class="card">
+                <h2>የክፍያ ማረጋገጫ ዳሽቦርድ</h2>
+                <p style="font-size: 13px; color: #475569; margin-bottom: 15px;">እባክዎ መጀመሪያ ከታች ያለውን ሰማያዊ ቁልፍ በመጫን የባንክ አካውንቱን ያግኙ፡</p>
+                
+                <button type="button" class="deposit-trigger-btn" onclick="showCbeAccount()">💰 የባንክ አካውንት ለማሳየት እዚህ ይጫኑ (Deposit)</button>
+
+                <div class="cbe-box" id="cbeAccountBox">
+                    <div class="cbe-logo">[CBE] የኢትዮጵያ ንግድ ባንክ</div>
+                    <p style="font-size: 13px; color: #ef4444; font-weight: bold;">ወደዚህ አካውንት ክፍያ ይፈጽሙ፡</p>
+                    <div class="acc-number" id="accountNum">1000705884987</div>
+                    <div>
+                        <button type="button" class="copy-btn" onclick="copyAccount()">አካውንት ቁጥር ኮፒ አድርግ</button>
+                    </div>
+                </div>
+
+                <form id="depositForm" onsubmit="submitDeposit(event)">
+                    <div class="form-group">
+                        <label>የገንዘብ መጠን (Amount)</label>
+                        <select class="form-control" id="depositAmount" required>
+                            <option value="">-- የከፈሉትን መጠን ይምረጡ --</option>
+                            <option value="500">500 ብር (ለEasy Job ፓኬጅ)</option>
+                            <option value="1000">1000 ብር (ለFast Job VIP ፓኬጅ)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>የባንክ ማረጋገጫ SMS ID ቁጥር</label>
+                        <input type="text" class="form-control" id="smsId" placeholder="ከባንክ የደረሰዎትን የ SMS መለያ ቁጥር እዚህ ያስገቡ" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">የክፍያ ፎርም አረጋግጥ (Submit)</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="jobs" class="tab-content">
+            <div class="card">
+                <div class="job-pkg-title bg-fast">
+                    🔥 Fast Job VIP ከፍተኛ ፓኬጅ (1000 ብር)
+                    <span class="visa-badge">🚀 አስቸኳይ ቪዛ በ 7 ቀን</span>
+                </div>
+                <div id="fastJobsList"></div>
+            </div>
+
+            <div class="card">
+                <div class="job-pkg-title bg-easy">
+                    🌾 Easy Job መደበኛ ፓኬጅ (500 ብር)
+                    <span class="visa-badge">📅 ቪዛ ከ 15 - 30 ቀን</span>
+                </div>
+                <div id="easyJobsList"></div>
+            </div>
+        </div>
+
+        <div id="profile" class="tab-content">
+            <div class="card">
+                <h2>የአመልካች ሙሉ መረጃ ማረጋገጫ (Profile Verification)</h2>
+                <form id="profileForm" onsubmit="submitProfile(event)">
+                    <div class="form-group">
+                        <label>ሙሉ ስም</label>
+                        <input type="text" class="form-control" placeholder="የአባት ስም ጨምሮ ያስገቡ" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ስልክ ቁጥር</label>
+                        <input type="tel" class="form-control" placeholder="09... ወይም 07..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>ጾታ (Gender)</label>
+                        <select class="form-control" required>
+                            <option value="ወንድ">ወንድ</option>
+                            <option value="ሴት">ሴት</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ሀገር (Country)</label>
+                        <input type="text" class="form-control" value="ኢትዮጵያ" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ከተማ (City)</label>
+                        <input type="text" class="form-control" placeholder="የሚኖሩበትን ከተማ ያስገቡ" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ቀበሌ / ዞን</label>
+                        <input type="text" class="form-control" placeholder="የሰፈር ወይም የቀበሌ ስም" required>
+                    </div>
+                    <div class="form-group">
+                        <label>የአካዳሚክ ትምህርት ደረጃ</label>
+                        <select class="form-control" id="eduLevel" required>
+                            <option value="">-- የትምህርት ደረጃ ይምረጡ --</option>
+                            <option value="8">8ኛ ክፍል</option>
+                            <option value="10">10ኛ ክፍል</option>
+                            <option value="12">12ኛ ክፍል</option>
+                            <option value="diploma">ዲፕሎማ (Diploma)</option>
+                            <option value="degree">ዲግሪ (Degree)</option>
+                            <option value="under8">ከ 8ኛ ክፍል በታች</option>
+                        </select>
+                        <div class="note-text">⚠️ ማሳሰቢያ፡ እድሉ የሚፈቀደው ከ 8ኛ ክፍል በላይ ለሆኑ ብቻ ነው።</div>
+                    </div>
+                    <div class="form-group">
+                        <label>ዕድሜ (Age)</label>
+                        <input type="number" class="form-control" id="userAge" placeholder="የመታወቂያ ዕድሜዎን ያስገቡ" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ሚስጢር ቁጥር (Password)</label>
+                        <input type="password" class="form-control" placeholder="አዲስ የይለፍ ቃል ይፍጠሩ" required>
+                    </div>
+                    <button type="submit" class="btn-submit">መረጃውን ሙሉ በሙሉ አረጋግጥ (Verify)</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="live-feed-container" id="liveFeed">
+        <div><span class="feed-pulse"></span> <span id="feedText">ስልክ 0923***45 በ 1000 ብር አፕላይ አድርጓል!</span></div>
+        <div style="color: #22c55e; font-weight: bold; font-size: 11px;">አሁን (Just Now)</div>
+    </div>
+
+    <div class="alert-overlay" id="customAlert">
+        <div class="alert-box">
+            <h3 id="alertTitle" style="color: var(--primary-color);">ማሳሰቢያ</h3>
+            <p id="alertMessage">መልዕክት...</p>
+            <button onclick="closeAlert()">እሺ</button>
+        </div>
+    </div>
+
+    <script>
+        // ተጠቃሚው ዴፖዚት ማድረጉን የሚያሳይ ተለዋዋጭ (State)
+        let hasDeposited = false;
+
+        function openTab(tabId) {
+            let contents = document.querySelectorAll('.tab-content');
+            let buttons = document.querySelectorAll('.tab-btn');
+            contents.forEach(content => content.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // ዴፖዚት በተን ሲጫን አካውንት ማሳያ
+        function showCbeAccount() {
+            document.getElementById('cbeAccountBox').style.display = 'block';
+            showAlert("CBE አካውንት", "የክፍያ አካውንቱ ከታች ተከፍቷል። እባክዎ 500 ወይም 1000 ብር አስገብተው የ SMS መለያውን ይሙሉእ።");
+        }
+
+        function copyAccount() {
+            let accNum = document.getElementById('accountNum').innerText;
+            navigator.clipboard.writeText(accNum);
+            showAlert("✅ ተገልብጧል!", "የአካውንት ቁጥር " + accNum + " ኮፒ ተደርጓል።");
+        }
+
+        function submitDeposit(e) {
+            e.preventDefault();
+            hasDeposited = true; // ክፍያ መፈጸሙን ያረጋግጣል
+            showAlert("🎉 ክፍያዎ ተመዝግቧል!", "የክፍያ መረጃዎ በሲስተሙ ተቀባይነት አግኝቷል። አሁን ወደ 'የካናዳ ስራዎች' በመሄድ ማመልከት ይችላሉ።");
+            document.getElementById('depositForm').reset();
+            document.getElementById('cbeAccountBox').style.display = 'none';
+        }
+
+        function submitProfile(e) {
+            e.preventDefault();
+            let edu = document.getElementById('eduLevel').value;
+            let age = parseInt(document.getElementById('userAge').value);
+
+            if(edu === "under8") {
+                showAlert("❌ ውድቅ ተደርጓል", "የእርስዎ የትምህርት ደረጃ ከሚፈለገው በታች ስለሆነ ማመልከት አይችሉም።");
+                return;
+            }
+            if(age < 18) {
+                showAlert("❌ ውድቅ ተደርጓል", "የካናዳ የስራ እድል የሚፈቀደው ዕድሜያቸው ከ 18 ዓመት በላይ ለሆኑ ብቻ ነው።");
+                return;
+            }
+
+            showAlert("✅ መረጃው ተረጋግጧል", "የግል መገለጫ መረጃዎ በስኬት ተረጋግጧል (Verified ሆኗል)።");
+        }
+
+        // ያለ ዴፖዚት አፕላይ እንዳይደረግ መከልከል
+        function tryApply(jobTitle) {
+            if(!hasDeposited) {
+                showAlert("🔒 ማመልከቻው ተዘግቷል!", "ይህን ስራ ለማመልከት መጀመሪያ በ 'ክፍያ (Deposit)' ክፍል በኩል ተገቢውን ክፍያ መፈጸም እና ማረጋገጥ አለብዎት።");
+            } else {
+                showAlert("✅ ማመልከቻዎ ተልኳል!", "ለ " + jobTitle + " ስራ ያቀረቡት ማመልከቻ በስኬት ተልኳል። በቅርቡ በስልክ እንገናኛለን።");
+            }
+        }
+
+        // የቀጥታ የውሸት ስልክ እንቅስቃሴዎች (Fake Live Feed Setup)
+        const prefix = ["0911", "0923", "0945", "0902", "0918", "0930", "0978", "0712", "0701"];
+        const jobsFeed = ["የፍራፍሬ መልቀም", "የላም እርባታ", "የትራክተር አሽከርካሪ", "የዶሮ እርባታ", "ምርት ማሸግ", "የአትክልት እንክብካቤ"];
+        
+        setInterval(() => {
+            let randPhone = prefix[Math.floor(Math.random() * prefix.length)] + "***" + Math.floor(100 + Math.random() * 900);
+            let randJob = jobsFeed[Math.floor(Math.random() * jobsFeed.length)];
+            let randAmount = Math.random() > 0.5 ? "1000 ብር (VIP)" : "500 ብር (Easy)";
+            
+            document.getElementById('feedText').innerText = `ስልክ ${randPhone} ለ${randJob} ስራ በ ${randAmount} አፕላይ አደረጉ!`;
+            
+            // ፈጣን የእንቅስቃሴ አኒሜሽን ለመስጠት
+            let feedBox = document.getElementById('liveFeed');
+            feedBox.style.transform = 'translateX(-50%) scale(1.05)';
+            setTimeout(() => {
+                feedBox.style.transform = 'translateX(-50%) scale(1)';
+            }, 300);
+
+        }, 3500); // በየ 3.5 ሴኮንድ ይቀያየራል
+
+        // ስራዎችን መጫኛ
+        const fastJobsData = [
+            { title: "የዘመናዊ ትራክተር እና ማሽነሪ አሽከርካሪ", img: "https://images.unsplash.com/photo-1594145062137-97d81a95a894?auto=format&fit=crop&w=150&q=80", wage: "$30/ሰዓት" },
+            { title: "የግሪን ሃውስ (Greenhouse) ቴክኒሻን", img: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=150&q=80", wage: "$28/ሰዓት" },
+            { title: "የዘመናዊ ላም እርባታ እና ወተት ማቀነባበር", img: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=150&q=80", wage: 
