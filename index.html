@@ -126,7 +126,7 @@
             padding: 20px;
             text-align: center;
             margin-bottom: 20px;
-            display: none; /* መጀመሪያ የተሰወረ ነው */
+            display: none;
         }
 
         .cbe-logo {
@@ -256,7 +256,7 @@
             cursor: pointer;
         }
 
-        /* የቀጥታ ማስታወቂያ (Live Fake Apply Feed) */
+        /* Live Fake Apply Feed */
         .live-feed-container {
             position: fixed;
             bottom: 15px;
@@ -336,14 +336,16 @@
         <p>የካናዳ የግብርና እና የእንስሳት እርባታ የቅጥር ዳሽቦርድ</p>
     </header>
 
+    <!-- Tabs (የተስተካከለ onClick Event) -->
     <div class="tabs">
-        <button class="tab-btn active" onclick="openTab('deposit')">💰 ክፍያ (Deposit)</button>
-        <button class="tab-btn" onclick="openTab('jobs')">🌾 የካናዳ ስራዎች</button>
-        <button class="tab-btn" onclick="openTab('profile')">👤 መገለጫ (Profile)</button>
+        <button class="tab-btn active" id="btn-deposit" onclick="openTab(event, 'deposit')">💰 ክፍያ (Deposit)</button>
+        <button class="tab-btn" id="btn-jobs" onclick="openTab(event, 'jobs')">🌾 የካናዳ ስራዎች</button>
+        <button class="tab-btn" id="btn-profile" onclick="openTab(event, 'profile')">👤 መገለጫ (Profile)</button>
     </div>
 
     <div class="container">
 
+        <!-- TAB 1: DEPOSIT SECTION -->
         <div id="deposit" class="tab-content active">
             <div class="card">
                 <h2>የክፍያ ማረጋገጫ ዳሽቦርድ</h2>
@@ -380,6 +382,7 @@
             </div>
         </div>
 
+        <!-- TAB 2: JOBS LIST -->
         <div id="jobs" class="tab-content">
             <div class="card">
                 <div class="job-pkg-title bg-fast">
@@ -398,6 +401,7 @@
             </div>
         </div>
 
+        <!-- TAB 3: PROFILE VERIFICATION -->
         <div id="profile" class="tab-content">
             <div class="card">
                 <h2>የአመልካች ሙሉ መረጃ ማረጋገጫ (Profile Verification)</h2>
@@ -457,11 +461,13 @@
 
     </div>
 
+    <!-- Live Fake Feed -->
     <div class="live-feed-container" id="liveFeed">
-        <div><span class="feed-pulse"></span> <span id="feedText">ስልክ 0923***45 በ 1000 ብር አፕላይ አድርጓል!</span></div>
-        <div style="color: #22c55e; font-weight: bold; font-size: 11px;">አሁን (Just Now)</div>
+        <div><span class="feed-pulse"></span> <span id="feedText">ስልክ 0923***45 ለፍራፍሬ መልቀም ስራ በ 1000 ብር አፕላይ አደረጉ!</span></div>
+        <div style="color: #22c55e; font-weight: bold; font-size: 11px;">አሁን</div>
     </div>
 
+    <!-- Custom Alert Box -->
     <div class="alert-overlay" id="customAlert">
         <div class="alert-box">
             <h3 id="alertTitle" style="color: var(--primary-color);">ማሳሰቢያ</h3>
@@ -471,19 +477,23 @@
     </div>
 
     <script>
-        // ተጠቃሚው ዴፖዚት ማድረጉን የሚያሳይ ተለዋዋጭ (State)
+        // የደህንነት ተለዋዋጭ
         let hasDeposited = false;
 
-        function openTab(tabId) {
+        // የ GitHub ስህተትን ለማረም የተስተካከለ Tab ፈንክሽን
+        function openTab(evt, tabId) {
             let contents = document.querySelectorAll('.tab-content');
             let buttons = document.querySelectorAll('.tab-btn');
+            
             contents.forEach(content => content.classList.remove('active'));
             buttons.forEach(btn => btn.classList.remove('active'));
+            
             document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            if (evt) {
+                evt.currentTarget.classList.add('active');
+            }
         }
 
-        // ዴፖዚት በተን ሲጫን አካውንት ማሳያ
         function showCbeAccount() {
             document.getElementById('cbeAccountBox').style.display = 'block';
             showAlert("CBE አካውንት", "የክፍያ አካውንቱ ከታች ተከፍቷል። እባክዎ 500 ወይም 1000 ብር አስገብተው የ SMS መለያውን ይሙሉእ።");
@@ -497,7 +507,7 @@
 
         function submitDeposit(e) {
             e.preventDefault();
-            hasDeposited = true; // ክፍያ መፈጸሙን ያረጋግጣል
+            hasDeposited = true; 
             showAlert("🎉 ክፍያዎ ተመዝግቧል!", "የክፍያ መረጃዎ በሲስተሙ ተቀባይነት አግኝቷል። አሁን ወደ 'የካናዳ ስራዎች' በመሄድ ማመልከት ይችላሉ።");
             document.getElementById('depositForm').reset();
             document.getElementById('cbeAccountBox').style.display = 'none';
@@ -520,7 +530,6 @@
             showAlert("✅ መረጃው ተረጋግጧል", "የግል መገለጫ መረጃዎ በስኬት ተረጋግጧል (Verified ሆኗል)።");
         }
 
-        // ያለ ዴፖዚት አፕላይ እንዳይደረግ መከልከል
         function tryApply(jobTitle) {
             if(!hasDeposited) {
                 showAlert("🔒 ማመልከቻው ተዘግቷል!", "ይህን ስራ ለማመልከት መጀመሪያ በ 'ክፍያ (Deposit)' ክፍል በኩል ተገቢውን ክፍያ መፈጸም እና ማረጋገጥ አለብዎት።");
@@ -529,7 +538,7 @@
             }
         }
 
-        // የቀጥታ የውሸት ስልክ እንቅስቃሴዎች (Fake Live Feed Setup)
+        // Live Fake Feed
         const prefix = ["0911", "0923", "0945", "0902", "0918", "0930", "0978", "0712", "0701"];
         const jobsFeed = ["የፍራፍሬ መልቀም", "የላም እርባታ", "የትራክተር አሽከርካሪ", "የዶሮ እርባታ", "ምርት ማሸግ", "የአትክልት እንክብካቤ"];
         
@@ -538,19 +547,21 @@
             let randJob = jobsFeed[Math.floor(Math.random() * jobsFeed.length)];
             let randAmount = Math.random() > 0.5 ? "1000 ብር (VIP)" : "500 ብር (Easy)";
             
-            document.getElementById('feedText').innerText = `ስልክ ${randPhone} ለ${randJob} ስራ በ ${randAmount} አፕላይ አደረጉ!`;
+            let feedTextObj = document.getElementById('feedText');
+            if(feedTextObj) {
+                feedTextObj.innerText = `ስልክ ${randPhone} ለ${randJob} ስራ በ ${randAmount} አፕላይ አደረጉ!`;
+            }
             
-            // ፈጣን የእንቅስቃሴ አኒሜሽን ለመስጠት
             let feedBox = document.getElementById('liveFeed');
-            feedBox.style.transform = 'translateX(-50%) scale(1.05)';
-            setTimeout(() => {
-                feedBox.style.transform = 'translateX(-50%) scale(1)';
-            }, 300);
+            if(feedBox) {
+                feedBox.style.transform = 'translateX(-50%) scale(1.05)';
+                setTimeout(() => {
+                    feedBox.style.transform = 'translateX(-50%) scale(1)';
+                }, 300);
+            }
+        }, 3500);
 
-        }, 3500); // በየ 3.5 ሴኮንድ ይቀያየራል
-
-        // ስራዎችን መጫኛ
+        // Jobs Data
         const fastJobsData = [
             { title: "የዘመናዊ ትራክተር እና ማሽነሪ አሽከርካሪ", img: "https://images.unsplash.com/photo-1594145062137-97d81a95a894?auto=format&fit=crop&w=150&q=80", wage: "$30/ሰዓት" },
-            { title: "የግሪን ሃውስ (Greenhouse) ቴክኒሻን", img: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=150&q=80", wage: "$28/ሰዓት" },
-            { title: "የዘመናዊ ላም እርባታ እና ወተት ማቀነባበር", img: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=150&q=80", wage: 
+            { titl
